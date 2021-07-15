@@ -1,5 +1,5 @@
 import {
-  AppBar,
+  AppBar, BottomNavigation, BottomNavigationAction,
   Box,
   Button,
   Card, CardActions,
@@ -12,10 +12,19 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+
+import RestoreIcon from "@material-ui/icons/Restore";
+import FolderIcon from "@material-ui/icons/Folder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+
+
+
 import MenuIcon from "@material-ui/icons/Menu";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import LayerIcon from "@material-ui/icons/Layers";
 import { makeStyles } from "@material-ui/core/styles";
+import {useState} from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,8 +70,15 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+
+
 function App() {
   const classes = useStyles();
+  const [value, setValue] = useState('recents')
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
+
   return (
     <>
       <AppBar position="fixed">
@@ -191,6 +207,20 @@ function App() {
           </Grid>
         </Container>
       </main>
+      <footer>
+        <Typography variant="h6" align="center" gutterBottom>
+          Footer
+        </Typography>
+        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+           <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon  />} />
+           <BottomNavigationAction label="Favorites" value="favorite" icon={<FavoriteIcon />} />
+           <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
+           <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+        </BottomNavigation>
+        <Typography align="center" color="textSecondary" component="p" variant="subtitle1">
+          Web Blog React JS Material UI Site
+        </Typography>
+      </footer>
     </>
   );
 }
