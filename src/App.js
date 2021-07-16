@@ -5,10 +5,10 @@ import {
   Card, CardActions,
   CardContent,
   CardMedia,
-  Container,
+  Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   Grid,
   IconButton,
-  Paper,
+  Paper, TextField,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -79,6 +79,16 @@ function App() {
     setValue(newValue)
   }
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
     <>
       <AppBar position="fixed">
@@ -97,9 +107,44 @@ function App() {
               Menu
             </Typography>
             <Box mr={3}>
-              <Button color="inherit" variant="outlined">
+              <Button
+                color="inherit"
+                variant="outlined"
+                onClick={handleClickOpen}
+              >
                 Log in
               </Button>
+
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+              >
+                <DialogTitle id="form-dialog-title">Log in</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>Log in to see videos</DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                  />
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="pass"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">Cancel</Button>
+                  <Button onClick={handleClose} color="primary">Log in</Button>
+                </DialogActions>
+              </Dialog>
             </Box>
             <Button color="secondary" variant="contained">
               Sign up
@@ -188,7 +233,9 @@ function App() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography>Blog post</Typography>
-                    <Typography>Just postJust postJust postJust postJust postJust post</Typography>
+                    <Typography>
+                      Just postJust postJust postJust postJust postJust post
+                    </Typography>
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary">
@@ -211,13 +258,38 @@ function App() {
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-           <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon  />} />
-           <BottomNavigationAction label="Favorites" value="favorite" icon={<FavoriteIcon />} />
-           <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-           <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+        <BottomNavigation
+          value={value}
+          onChange={handleChange}
+          className={classes.root}
+        >
+          <BottomNavigationAction
+            label="Recents"
+            value="recents"
+            icon={<RestoreIcon />}
+          />
+          <BottomNavigationAction
+            label="Favorites"
+            value="favorite"
+            icon={<FavoriteIcon />}
+          />
+          <BottomNavigationAction
+            label="Nearby"
+            value="nearby"
+            icon={<LocationOnIcon />}
+          />
+          <BottomNavigationAction
+            label="Folder"
+            value="folder"
+            icon={<FolderIcon />}
+          />
         </BottomNavigation>
-        <Typography align="center" color="textSecondary" component="p" variant="subtitle1">
+        <Typography
+          align="center"
+          color="textSecondary"
+          component="p"
+          variant="subtitle1"
+        >
           Web Blog React JS Material UI Site
         </Typography>
       </footer>
